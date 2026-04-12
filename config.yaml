@@ -7,4 +7,10 @@ data_ingestion:
 data_validation:
   artifacts: artifacts/validation
   validation_status_file: validation_status.json
-  validated_filename: validated_data.csv 
+
+data_transformation:
+  artifacts: artifacts/transformation
+  complete_transformed_filename: transformed_data.csv
+  training_data_filename: train_data.csv
+  testing_data_filename: test_data.csv
+  scaler_filename: datascaler.pkl 

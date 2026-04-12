@@ -28,19 +28,5 @@ class DataValidation:
                 logger.info(f"Data validation is completed, proceeding with basic cleaning of data")
             create_dirs(Path(self.VALIDATION_CONFIG.artifacts))
             VALIDATION_STATUS_FILE=os.path.join(self.VALIDATION_CONFIG.artifacts,self.VALIDATION_CONFIG.validation_status_file)
-            save_json(Path(VALIDATION_STATUS_FILE),{'Validation Status':VALIDATION_STATUS})
+            save_json(Path(VALIDATION_STATUS_FILE),{'validation_status':VALIDATION_STATUS})
             return VALIDATION_STATUS
-                    
-    @ensure_annotations
-    def clean_data(self,data:pd.DataFrame,validation_status:bool=False)->pd.DataFrame|None:
-        if validation_status:
-            data.drop_duplicates(inplace=True)
-            data.fillna('Not Present',inplace=True)
-            VALIDATED_DATA_PATH=os.path.join(self.VALIDATION_CONFIG.artifacts,self.VALIDATION_CONFIG.validated_filename)
-            create_dirs(Path(self.VALIDATION_CONFIG.artifacts))
-            data.to_csv(VALIDATED_DATA_PATH,index=False)
-            logger.info(f"Cleaned and stored data successfully in {VALIDATED_DATA_PATH}")
-            return data
-        else:
-            logger.fatal("Invalid data - Please check filepaths and data")
-            return None

@@ -9,7 +9,6 @@ class DataValidationPipeline:
         self.obj=DataValidation()
 
     @ensure_annotations
-    def start_validation(self,data:pd.DataFrame)->pd.DataFrame|None:
+    def start_validation(self,data:pd.DataFrame)->bool:
         VALIDATION_STATUS=self.obj.validate_data(data)
-        cleaned_data=self.obj.clean_data(data,VALIDATION_STATUS)
-        return cleaned_data
+        return VALIDATION_STATUS
