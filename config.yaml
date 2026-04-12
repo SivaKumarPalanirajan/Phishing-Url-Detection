@@ -1,0 +1,10 @@
+data_ingestion:
+  artifacts: artifacts/data
+  filename: Dataset.csv
+  db_name: projects 
+  table_name: phishing_url_dataset
+
+data_validation:
+  artifacts: artifacts/validation
+  validation_status_file: validation_status.json
+  validated_filename: validated_data.csv 

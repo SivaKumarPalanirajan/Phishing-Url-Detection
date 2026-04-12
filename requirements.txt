@@ -1,0 +1,13 @@
+pandas 
+numpy 
+scikit-learn
+ensure 
+ipykernel
+mlflow
+dvc
+python-box
+pyYAML
+scipy
+seaborn
+matplotlib
+tensorflow
