@@ -2,6 +2,8 @@ artifacts/
 logs/
 scikit-venv/
 src/notebooks/
+mlruns/
+mlflow.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

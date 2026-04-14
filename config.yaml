@@ -14,3 +14,15 @@ data_transformation:
   training_data_filename: train_data.csv
   testing_data_filename: test_data.csv
   scaler_filename: datascaler.pkl 
+  encoder_filename: dataencoder
+
+model_training:
+  artifacts: artifacts/training
+  transformed_filepath: artifacts/transformation
+  training_data_filename: train_data.csv
+  testing_data_filename: test_data.csv
+  num_estimators: 100
+  max_depth: 32
+  model_filename: model.pkl
+  model_version_filename: model_version.json
+
