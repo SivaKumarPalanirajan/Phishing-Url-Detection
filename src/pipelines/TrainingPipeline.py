@@ -1,8 +1,11 @@
 from src.components.Trainer import ModelTrainer
 from src.utils.common import *
 from src.constants import CONFIG_PATH,SCHEMA_PATH
+from ensure import ensure_annotations
 
 class TrainingPipeline:
+    
+    @ensure_annotations
     def __init__(self,TRAINING_DATA: pd.DataFrame | None = None ,TESTING_DATA: pd.DataFrame | None = None ):
         TRAINING_CONFIG=load_yaml(CONFIG_PATH).model_training
         self.training_data=TRAINING_DATA 

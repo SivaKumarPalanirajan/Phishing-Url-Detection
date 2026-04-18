@@ -19,16 +19,20 @@ class DataTransform:
         data.dropna(inplace=True)
         logger.info(f"Removed rows containing Null")
 
+        useful_features=self.TRANSFORMATION_CONFIG.useful_features
         numerical_cols=[]
         categorical_cols=[]
         for col,type in self.SCHEMA.INP_COLS.items():
-            if type in ['int64','float64']:
-                numerical_cols.append(col)
-            else:
-                categorical_cols.append(col)
+            if col in useful_features:
+                if type in ['int64','float64']:
+                    numerical_cols.append(col)
+                else:
+                    categorical_cols.append(col)
 
         data[numerical_cols]=scaler.fit_transform(data[numerical_cols])
-        
+        logger.info('Identified Numerical features from Useful features: %s',", ".join(numerical_cols))
+        logger.info('Identified Categorical features from Useful features: %s',", ".join(categorical_cols))
+
         TRANSFORMED_DATA_PATH=os.path.join(self.TRANSFORMATION_CONFIG.artifacts,self.TRANSFORMATION_CONFIG.complete_transformed_filename)
         create_dirs(Path(self.TRANSFORMATION_CONFIG.artifacts))
 
@@ -49,17 +53,25 @@ class DataTransform:
     @ensure_annotations
     def training_testing_data_creation(self,data:pd.DataFrame)->tuple:
         logger.info(f"Total number of rows: {data.shape[0]}")
-        train,test=train_test_split(data,test_size=0.2)
-        logger.info(f"Train Test split completed")
+        train,eval=train_test_split(data,test_size=0.3)
+        logger.info(f"Train Eval split completed")
+
+        test,val=train_test_split(eval,test_size=0.5)
+        logger.info(f"Test Val split completed")
 
         logger.info(f"Total number of rows in training data: {train.shape[0]}")
-        logger.info(f"Total number of rows in testing data: {test.shape[0]}")
+        logger.info(f"Total number of rows in testing data: {eval.shape[0]}")
 
         TRAIN_FILEPATH=os.path.join(self.TRANSFORMATION_CONFIG.artifacts,self.TRANSFORMATION_CONFIG.training_data_filename)
         TEST_FILEPATH=os.path.join(self.TRANSFORMATION_CONFIG.artifacts,self.TRANSFORMATION_CONFIG.testing_data_filename)
+        VAL_FILEPATH=os.path.join(self.TRANSFORMATION_CONFIG.artifacts,self.TRANSFORMATION_CONFIG.val_data_filename)
+
         train.to_csv(TRAIN_FILEPATH,index=False)
         logger.info(f"Store the Training data successfully in {TRAIN_FILEPATH}")
 
         test.to_csv(TEST_FILEPATH,index=False)
         logger.info(f"Store the Testing data successfully in {TEST_FILEPATH}")
-        return train,test
+
+        test.to_csv(VAL_FILEPATH,index=False)
+        logger.info(f"Store the Val data successfully in {VAL_FILEPATH}")
+        return train,test,val

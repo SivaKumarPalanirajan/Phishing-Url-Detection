@@ -11,5 +11,5 @@ class DataTransformPipeline:
     def start_transformation(self,data:pd.DataFrame)->tuple:
         obj=DataTransform()
         preprocessed_data=obj.preprocess_data(data)
-        train,test=obj.training_testing_data_creation(preprocessed_data)
-        return train,test
+        train,test,val=obj.training_testing_data_creation(preprocessed_data)
+        return train,test,val

@@ -2,6 +2,7 @@ from src.pipelines.DataIngestionPipeline import DataIngestionPipeline
 from src.pipelines.DataValidationPipeline import DataValidationPipeline
 from src.pipelines.DataTransformPipeline import DataTransformPipeline
 from src.pipelines.TrainingPipeline import TrainingPipeline
+from src.pipelines.EvaluationPipeline import EvaluationPipeline
 
 from src.utils.common import * 
 
@@ -18,12 +19,16 @@ if __name__=="__main__":
         if status==True:
             logger.info("------------------- STAGE: DATA TRANSFORMATION STARTED ------------------- ")
             obj3=DataTransformPipeline()
-            train_data,test_data=obj3.start_transformation(ingested_data)
+            train_data,test_data,val_data=obj3.start_transformation(ingested_data)
             logger.info("------------------- STAGE: DATA TRANSFORMATION COMPLETED -------------------")
             logger.info("------------------- STAGE: MODEL TRAINING STARTED ------------------- ")
             obj4=TrainingPipeline(train_data,test_data)
             model=obj4.start_training_and_testing()
             logger.info("------------------- STAGE: MODEL TRAINING COMPLETED -------------------")
+            logger.info("------------------- STAGE: MODEL EVALUATION STARTED ------------------- ")
+            obj4=EvaluationPipeline()
+            obj4.start_evaluation(model,val_data)
+            logger.info("------------------- STAGE: MODEL EVALUATION COMPLETED -------------------")
 
         else:
             raise Exception("Invalid Data - Please check the data")

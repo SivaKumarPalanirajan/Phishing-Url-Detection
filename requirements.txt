@@ -10,4 +10,4 @@ pyYAML
 scipy
 seaborn
 matplotlib
-tensorflow
+streamlit

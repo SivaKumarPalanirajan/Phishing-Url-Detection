@@ -7,15 +7,18 @@ import mlflow
 from mlflow.models import infer_signature 
 import mlflow.sklearn  
 import json 
+from ensure import ensure_annotations
 
 class ModelTrainer:
-    def __init__(self,TRAINING_DATA: pd.DataFrame ,TESTING_DATA: pd.DataFrame ):
+
+    @ensure_annotations
+    def __init__(self,TRAINING_DATA: pd.DataFrame ,TESTING_DATA: pd.DataFrame):
         TRAINING_CONFIG=load_yaml(CONFIG_PATH).model_training
         SCHEMA=load_yaml(SCHEMA_PATH)
         create_dirs(TRAINING_CONFIG.artifacts)
         self.inp_features=[col for col,_ in SCHEMA.INP_COLS.items()]
         self.target_feature=[col for col,_ in SCHEMA.TARGET_COL.items()][0]
-
+        self.useful_features=TRAINING_CONFIG.useful_features
         self.training_data=TRAINING_DATA 
         self.testing_data=TESTING_DATA
 
@@ -25,9 +28,9 @@ class ModelTrainer:
         self.model_filepath=os.path.join(TRAINING_CONFIG.artifacts,TRAINING_CONFIG.model_filename)
 
     def training(self):
-        x_train=self.training_data[self.inp_features]
+        x_train=self.training_data[self.useful_features]
         y_train=self.training_data[self.target_feature]
-
+        logger.info('Started training using the features: %s',self.useful_features)
         self.model.fit(x_train,y_train)
         logger.info("Model training completed")
 
@@ -57,7 +60,7 @@ class ModelTrainer:
         return self.model 
     
     def testing(self):
-        x_test=self.testing_data[self.inp_features]
+        x_test=self.testing_data[self.useful_features]
         y_test=self.testing_data[self.target_feature]
 
         y_pred=self.model.predict(x_test)

@@ -11,8 +11,10 @@ data_validation:
 data_transformation:
   artifacts: artifacts/transformation
   complete_transformed_filename: transformed_data.csv
+  useful_features: ['url','dom','is_https','tld','digit_cnt']
   training_data_filename: train_data.csv
   testing_data_filename: test_data.csv
+  val_data_filename: val_data.csv
   scaler_filename: datascaler.pkl 
   encoder_filename: dataencoder
 
@@ -21,8 +23,15 @@ model_training:
   transformed_filepath: artifacts/transformation
   training_data_filename: train_data.csv
   testing_data_filename: test_data.csv
+  useful_features: ['url','dom','is_https','tld','digit_cnt']
   num_estimators: 100
   max_depth: 32
   model_filename: model.pkl
   model_version_filename: model_version.json
 
+model_evaluation:
+  artifacts: artifacts/evaluation
+  val_data_filename: val_data.csv
+  model_filename: model.pkl
+  model_version_filename: model_version.json
+  metrics_filename: metrics.json 
