@@ -6,13 +6,13 @@ LOG_FORMAT="[%(asctime)s] - %(levelname)s - %(module)s - %(message)s"
 logging.basicConfig(level=logging.INFO,format=LOG_FORMAT)
 
 paths=[Path(dir) for dir in [
-    f"src/__init__.py",
-    f"src/components/__init__.py",
-    f"src/pipelines/__init__.py",
-    f"src/notebooks/ingestion.ipynb",
-    f"src/constants/__init__.py",
-    f"src/utils/__init__.py",
-    f"src/utils/common.py",
+    "src/__init__.py",
+    "src/components/__init__.py",
+    "src/pipelines/__init__.py",
+    "src/notebooks/ingestion.ipynb",
+    "src/constants/__init__.py",
+    "src/utils/__init__.py",
+    "src/utils/common.py",
     'params.yaml',
     'config.yaml',
     'schema.yaml',
