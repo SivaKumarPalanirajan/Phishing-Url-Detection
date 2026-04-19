@@ -3,6 +3,7 @@ from src.utils.common import *
 from src.constants import CONFIG_PATH,SCHEMA_PATH
 import mlflow 
 from sklearn.metrics import accuracy_score,precision_score,recall_score,classification_report
+from scipy.sparse import hstack
 
 class ModelEvaluation:
     def __init__(self):
@@ -31,12 +32,29 @@ class ModelEvaluation:
         logger.info(f'Loaded model {self.model_version}')
 
         logger.info(f'Loaded validation data')
-        inp_cols=[col for col,_ in self.SCHEMA.INP_COLS.items()]
         tar_col=[col for col,_ in self.SCHEMA.TARGET_COL.items()]
 
-        x_val=val_data[self.useful_features]
         y_val=val_data[tar_col]
 
+        preprocessors={}
+
+
+        for col in self.useful_features:
+            if col in ['url','tld','dom']:
+                encoder=load_model(Path(os.path.join(self.TRANSFORM_CONFIG.artifacts,f"{self.TRANSFORM_CONFIG.encoder_filename}_{col}.pkl")))
+                preprocessors[col]=encoder
+            else:
+                scaler=load_model(Path(os.path.join(self.TRANSFORM_CONFIG.artifacts,self.TRANSFORM_CONFIG.scaler_filename)))
+                preprocessors['numerical']=scaler
+
+
+        x_val_url_encoded=preprocessors['url'].transform(val_data['url'])
+        x_val_tld_encoded=preprocessors['tld'].transform(val_data['tld'])
+        x_val_dom_encoded=preprocessors['dom'].transform(val_data['dom'])
+        x_val_numerical_encoded=preprocessors['numerical'].transform(val_data[['digit_cnt','is_https']])
+
+        x_val=hstack([x_val_url_encoded,x_val_tld_encoded,x_val_dom_encoded,x_val_numerical_encoded])
+        
         mlflow.set_experiment("Phising-Url-Detection")
         with mlflow.start_run(run_name=f"Evaluation - v{self.model_version}"):
             y_pred=self.model.predict(x_val)
