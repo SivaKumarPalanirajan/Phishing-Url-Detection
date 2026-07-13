@@ -9,7 +9,7 @@ The Producer/Consumer and Worker Scripts are present inside the RedisComponents.
 # Dataset & Attribution
 This project uses the URL-Phish dataset. The dataset was obtained from Kaggle, where it is available as [Phishing URL Detection (111K URLs, 22 Features)](https://www.kaggle.com/datasets/sahandnamvar/phishing-url-detection-111k-urls-22-features).
 
-The dataset is licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**, 
+The dataset is originally licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**, 
 which permits sharing, redistribution, and adaptation with appropriate credit.
 
 **Dataset citation**<br>
@@ -47,6 +47,6 @@ the stored datasets.
 
 # License
 - **Code**: MIT License — see `LICENSE`
-- **Data**: Raw and processed datasets are redistributed under **Creative Commons Attribution 4.0 International (CC BY 4.0) license**, consistent with the original dataset's license (see Dataset & Attribution above).
+- **Data**: Raw and processed datasets are redistributed under original **Creative Commons Attribution 4.0 International (CC BY 4.0) license**, consistent with the original dataset's license (see Dataset & Attribution above).
 - **Model & preprocessors**: MIT License — trained artifacts are provided under the same 
   terms as the codebase. Model trained on **Creative Commons Attribution 4.0 International (CC BY 4.0) license** data; see Dataset & Attribution section for details.
