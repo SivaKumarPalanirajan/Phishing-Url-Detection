@@ -1,0 +1,52 @@
+stages:
+  transformation:
+    cmd: python -m src.pipelines.DataTransformPipeline
+    deps:
+    - artifacts/data/Dataset.csv
+    - src/pipelines/DataTransformPipeline.py
+    - schema.yaml
+    - config.yaml
+    outs:
+    - artifacts/transformation/dataencoder_dom.pkl
+    - artifacts/transformation/dataencoder_tld.pkl
+    - artifacts/transformation/dataencoder_url.pkl
+    - artifacts/transformation/datascaler.pkl
+    - artifacts-prediction/dataencoder_dom.pkl
+    - artifacts-prediction/dataencoder_tld.pkl
+    - artifacts-prediction/dataencoder_url.pkl
+    - artifacts-prediction/datascaler.pkl
+    - artifacts/transformation/test_data.csv
+    - artifacts/transformation/train_data.csv
+    - artifacts/transformation/val_data.csv
+    - artifacts/validation/validation_status.json
+  training:
+    cmd: python -m src.pipelines.TrainingPipeline
+    deps:
+    - schema.yaml
+    - config.yaml
+    - artifacts/transformation/test_data.csv
+    - artifacts/transformation/train_data.csv
+    - src/pipelines/TrainingPipeline.py
+    - artifacts/transformation/dataencoder_dom.pkl
+    - artifacts/transformation/dataencoder_tld.pkl
+    - artifacts/transformation/dataencoder_url.pkl
+    - artifacts/transformation/datascaler.pkl
+    outs:
+    - artifacts/training/model.pkl
+    - artifacts-prediction/model.pkl
+    - artifacts/training/model_version.json
+  evaluate:
+    cmd: python -m src.pipelines.EvaluationPipeline
+    deps:
+    - artifacts/training/model.pkl
+    - artifacts/training/model_version.json
+    - artifacts/transformation/dataencoder_dom.pkl
+    - artifacts/transformation/dataencoder_tld.pkl
+    - artifacts/transformation/dataencoder_url.pkl
+    - artifacts/transformation/datascaler.pkl
+    - artifacts/transformation/val_data.csv
+    - config.yaml
+    - schema.yaml
+    - src/pipelines/EvaluationPipeline.py
+    outs:
+    - artifacts/evaluation/evaluation_metrics.json

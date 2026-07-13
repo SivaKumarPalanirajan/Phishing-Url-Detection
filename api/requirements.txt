@@ -1,0 +1,5 @@
+tldextract
+flask
+huggingface_hub
+scipy
+scikit-learn

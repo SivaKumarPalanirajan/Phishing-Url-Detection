@@ -1,0 +1,170 @@
+schema: '2.0'
+stages:
+  transformation:
+    cmd: python -m src.pipelines.DataTransformPipeline
+    deps:
+    - path: artifacts/data/Dataset.csv
+      hash: md5
+      md5: 6d3f39eb785300d0c7a8db07e9f014fd
+      size: 15149338
+    - path: config.yaml
+      hash: md5
+      md5: 36580baad52c107febac2355d0684d34
+      size: 1252
+    - path: schema.yaml
+      hash: md5
+      md5: b5110c31fe36ce6fc0093709f46b5501
+      size: 559
+    - path: src/pipelines/DataTransformPipeline.py
+      hash: md5
+      md5: f4288c08c72c108582ddb31dd168f425
+      size: 1358
+    outs:
+    - path: artifacts-prediction/dataencoder_dom.pkl
+      hash: md5
+      md5: 94c1325481f4b47a65079f3bcb212e91
+      size: 1536
+    - path: artifacts-prediction/dataencoder_tld.pkl
+      hash: md5
+      md5: 39e0f25076e58adc999141d98cc0b875
+      size: 1169
+    - path: artifacts-prediction/dataencoder_url.pkl
+      hash: md5
+      md5: f2248772b852176b9aed4ea3625f4a9b
+      size: 2095
+    - path: artifacts-prediction/datascaler.pkl
+      hash: md5
+      md5: d6b3572cb8dbd4fd4a30a028b11e47f2
+      size: 574
+    - path: artifacts/transformation/dataencoder_dom.pkl
+      hash: md5
+      md5: 94c1325481f4b47a65079f3bcb212e91
+      size: 1536
+    - path: artifacts/transformation/dataencoder_tld.pkl
+      hash: md5
+      md5: 39e0f25076e58adc999141d98cc0b875
+      size: 1169
+    - path: artifacts/transformation/dataencoder_url.pkl
+      hash: md5
+      md5: f2248772b852176b9aed4ea3625f4a9b
+      size: 2095
+    - path: artifacts/transformation/datascaler.pkl
+      hash: md5
+      md5: d6b3572cb8dbd4fd4a30a028b11e47f2
+      size: 574
+    - path: artifacts/transformation/test_data.csv
+      hash: md5
+      md5: 41747948bd1dc9cb33eb28cb570c56d2
+      size: 2898096
+    - path: artifacts/transformation/train_data.csv
+      hash: md5
+      md5: d513a28f458b696e799fb2bc1d0e48dd
+      size: 13528138
+    - path: artifacts/transformation/val_data.csv
+      hash: md5
+      md5: 41747948bd1dc9cb33eb28cb570c56d2
+      size: 2898096
+    - path: artifacts/validation/validation_status.json
+      hash: md5
+      md5: 14e232e313e070ffc3c099daef836bf8
+      size: 33
+  training:
+    cmd: python -m src.pipelines.TrainingPipeline
+    deps:
+    - path: artifacts/transformation/dataencoder_dom.pkl
+      hash: md5
+      md5: 94c1325481f4b47a65079f3bcb212e91
+      size: 1536
+    - path: artifacts/transformation/dataencoder_tld.pkl
+      hash: md5
+      md5: 39e0f25076e58adc999141d98cc0b875
+      size: 1169
+    - path: artifacts/transformation/dataencoder_url.pkl
+      hash: md5
+      md5: f2248772b852176b9aed4ea3625f4a9b
+      size: 2095
+    - path: artifacts/transformation/datascaler.pkl
+      hash: md5
+      md5: d6b3572cb8dbd4fd4a30a028b11e47f2
+      size: 574
+    - path: artifacts/transformation/test_data.csv
+      hash: md5
+      md5: 41747948bd1dc9cb33eb28cb570c56d2
+      size: 2898096
+    - path: artifacts/transformation/train_data.csv
+      hash: md5
+      md5: d513a28f458b696e799fb2bc1d0e48dd
+      size: 13528138
+    - path: config.yaml
+      hash: md5
+      md5: 36580baad52c107febac2355d0684d34
+      size: 1252
+    - path: schema.yaml
+      hash: md5
+      md5: b5110c31fe36ce6fc0093709f46b5501
+      size: 559
+    - path: src/pipelines/TrainingPipeline.py
+      hash: md5
+      md5: 3311c69cc8a4fafc7de73e611c8b9a99
+      size: 1392
+    outs:
+    - path: artifacts-prediction/model.pkl
+      hash: md5
+      md5: 803ef77f97673bee8a3ed58042a694e8
+      size: 125439480
+    - path: artifacts/training/model.pkl
+      hash: md5
+      md5: 803ef77f97673bee8a3ed58042a694e8
+      size: 125439480
+    - path: artifacts/training/model_version.json
+      hash: md5
+      md5: 0f020101fadfbada4728eab6fa39f8ef
+      size: 22
+  evaluate:
+    cmd: python -m src.pipelines.EvaluationPipeline
+    deps:
+    - path: artifacts/training/model.pkl
+      hash: md5
+      md5: 803ef77f97673bee8a3ed58042a694e8
+      size: 125439480
+    - path: artifacts/training/model_version.json
+      hash: md5
+      md5: 0f020101fadfbada4728eab6fa39f8ef
+      size: 22
+    - path: artifacts/transformation/dataencoder_dom.pkl
+      hash: md5
+      md5: 94c1325481f4b47a65079f3bcb212e91
+      size: 1536
+    - path: artifacts/transformation/dataencoder_tld.pkl
+      hash: md5
+      md5: 39e0f25076e58adc999141d98cc0b875
+      size: 1169
+    - path: artifacts/transformation/dataencoder_url.pkl
+      hash: md5
+      md5: f2248772b852176b9aed4ea3625f4a9b
+      size: 2095
+    - path: artifacts/transformation/datascaler.pkl
+      hash: md5
+      md5: d6b3572cb8dbd4fd4a30a028b11e47f2
+      size: 574
+    - path: artifacts/transformation/val_data.csv
+      hash: md5
+      md5: 41747948bd1dc9cb33eb28cb570c56d2
+      size: 2898096
+    - path: config.yaml
+      hash: md5
+      md5: 36580baad52c107febac2355d0684d34
+      size: 1252
+    - path: schema.yaml
+      hash: md5
+      md5: b5110c31fe36ce6fc0093709f46b5501
+      size: 559
+    - path: src/pipelines/EvaluationPipeline.py
+      hash: md5
+      md5: cd33fdedf8152b2658f0d645d890fddf
+      size: 1176
+    outs:
+    - path: artifacts/evaluation/evaluation_metrics.json
+      hash: md5
+      md5: 36b2313c3c16da35942c6ab0cab2770d
+      size: 107

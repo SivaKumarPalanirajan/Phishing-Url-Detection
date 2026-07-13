@@ -1,0 +1,38 @@
+data_ingestion:
+  artifacts: artifacts/data
+  filename: Dataset.csv
+
+data_validation:
+  artifacts: artifacts/validation
+  validation_status_file: validation_status.json
+
+data_transformation:
+  artifacts: artifacts/transformation
+  artifacts_inferencing: artifacts-prediction
+  useful_features: ['url','dom','is_https','tld','digit_cnt']
+  training_data_filename: train_data.csv
+  testing_data_filename: test_data.csv
+  val_data_filename: val_data.csv
+  scaler_filename: datascaler.pkl 
+  encoder_filename: dataencoder
+
+model_training:
+  artifacts: artifacts/training
+  artifacts_inferencing: artifacts-prediction
+  transformed_filepath: artifacts/transformation
+  training_data_filename: train_data.csv
+  testing_data_filename: test_data.csv
+  useful_features: ['url','dom','is_https','tld','digit_cnt']
+  num_estimators: 400
+  max_depth: 32
+  model_filename: model.pkl
+  model_version_filename: model_version.json
+
+model_evaluation:
+  artifacts: artifacts/evaluation
+  artifacts_training: artifacts/training
+  artifacts_transformation: artifacts/transformation
+  val_data_filename: val_data.csv
+  model_filename: model.pkl
+  model_version_filename: model_version.json
+  metrics_filename: evaluation_metrics.json 
