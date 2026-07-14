@@ -21,9 +21,8 @@ def home():
 @app.route('/health')
 def health():
     try:
-        model_path = hf_hub_download(
-            repo_id="SivakumarP/PhishingURLDetection",
-            filename="dataencoder_dom.pkl") 
+        model_path = os.path.join('models','datascaler.pkl')
+        model=pickle.load(open(model_path,'rb'))
         return jsonify({'response':'healthy'}),200 
     except:
         return jsonify({'response':'unhealthy'}),503 
@@ -35,9 +34,7 @@ def predict():
         payload=request.get_json() 
         url=payload.get('url')
         url=str(url)
-        model_path=hf_hub_download(
-                        repo_id="SivakumarP/PhishingURLDetection",
-                        filename=f"model.pkl") 
+        model_path=os.path.join('models',"model.pkl") 
         model=pickle.load(open(model_path,'rb'))
         logging.info('Loaded model')
 
@@ -56,9 +53,7 @@ def predict():
             logging.info('Created new features')
 
             for col in ['dom','tld','url']:
-                encoder_path=hf_hub_download(
-                        repo_id="SivakumarP/PhishingURLDetection",
-                        filename=f"dataencoder_{col}.pkl") 
+                encoder_path=os.path.join('models',f"dataencoder_{col}.pkl")
                 encoder=pickle.load(open(encoder_path,'rb'))
                 logging.info(f'Loaded {col} encoder')
                 if col=='dom':
@@ -70,9 +65,7 @@ def predict():
 
             logging.info(f'Encoded features')
 
-            scaler_path=hf_hub_download(
-                        repo_id="SivakumarP/PhishingURLDetection",
-                        filename=f"datascaler.pkl")
+            scaler_path=os.path.join('models','datascaler.pkl')
             scaler=pickle.load(open(scaler_path,'rb'))
             logging.info(f'Loaded scaler')
 
