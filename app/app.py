@@ -21,6 +21,7 @@ _,col2,col3=st.columns([2,5,2])
 
 logging.info('Started app')
 
+error_msg=None
 with col2:
     st.title(':blue[Phishing Detection using URL]')
 st.text('')
@@ -60,11 +61,24 @@ if url:
                     
                 else:
                     if response.content:
-                        logging.error(f"Inferencing failed with status code {response.status_code} - {response.json().get('response')}")
-                        st.subheader(f"Inferencing failed - {response.json().get('response')}")
-                    
+                        try:
+                            logging.error(f"Inferencing failed with status code {response.status_code} - {response.json().get('response')}")
+                            error_msg=f"Inferencing failed - {response.json().get('response')}"
+                        except Exception as e:
+                            logging.error(f"Inferencing failed with status code {response.status_code} - {response.content}")
+                            error_msg=f"Inferencing failed - {response.content}"
+
+            except requests.exceptions.Timeout as e:
+                logging.exception(f"Inferencing failed - Timeout - {e}")
+                error_msg='Inferencing failed - Server timeout'
+            
+            except requests.exceptions.ConnectionError as e:
+                logging.exception(f"Inferencing failed - Connection error - {e}")
+                error_msg='Inferencing failed - Connection error'
+            
             except Exception as e:
-                logging.exception(f"Inferencing failed - {str(e)}")
-                st.subheader('Inferencing failed - Please try again later')
-
-
+                logging.exception(f"Inferencing failed - {e}")
+                error_msg='Inferencing failed - please try again later'
+            
+        if error_msg is not None:
+            st.subheader(error_msg)

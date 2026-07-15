@@ -4,7 +4,6 @@ import logging
 from scipy.sparse import hstack
 import tldextract
 import os 
-from huggingface_hub import hf_hub_download
 
 logging.basicConfig(level=logging.INFO,format="%(asctime)s - %(levelname)s - %(module)s - %(lineno)s - %(message)s")
 
@@ -85,7 +84,7 @@ def predict():
         logging.exception(f'Error occured during inferencing: {str(e)}')
         return jsonify({'response':f'Error occured: {str(e)}'}),500
 
-@app.errorhandler(500)
+@app.errorhandler(Exception)
 def server_error(e):
     return jsonify({"response": str(e)}), 500
     
