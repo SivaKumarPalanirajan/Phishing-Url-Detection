@@ -58,6 +58,7 @@ if url:
                     else:
                         st.success(f":red[This url's category: {prediction}]")
                     logging.info('Inferencing successful')
+                    break
                     
                 else:
                     if response.content:
