@@ -4,4 +4,4 @@ COPY api .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN python pull_models.py
 EXPOSE 7860
-CMD ["python","server.py"]
+CMD ["gunicorn","--bind","0.0.0.0:7860","server:app"]

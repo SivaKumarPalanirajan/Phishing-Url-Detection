@@ -14,3 +14,4 @@ streamlit
 tldextract
 redis
 python-dotenv
+gunicorn
