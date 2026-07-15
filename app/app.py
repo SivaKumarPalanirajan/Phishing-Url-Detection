@@ -67,7 +67,7 @@ if url:
                             error_msg=f"Inferencing failed - {response.json().get('response')}"
                         except Exception as e:
                             logging.error(f"Inferencing failed with status code {response.status_code} - {response.content}")
-                            error_msg=f"Inferencing failed - {response.content}"
+                            error_msg=f"Inferencing failed - try again later"
 
             except requests.exceptions.Timeout as e:
                 logging.exception(f"Inferencing failed - Timeout - {e}")
