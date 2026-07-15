@@ -1,12 +1,39 @@
 # Phishing Url Detection Using RandomForest Classifier, DVC, MLflow, Docker, Redis Queues and Streamlit
 
-A project which uses a url to build the required features and identifies whether it is Phishing or not.
+## DEMO 
+**APP URL**: https://phishing-url-detection-application.onrender.com <br>
+**API URL**: https://phishing-url-detection-96af.onrender.com <br>
 
-Redis Queues Integration is also available along with the Streamlit app.
+*Deployed on Render*
 
-The Producer/Consumer and Worker Scripts are present inside the RedisComponents. 
+## Overview
+A project which uses an url to build few required features and identifies whether it is Phishing or not.
 
-# Dataset & Attribution
+Two implementation available: <br>
+&emsp;→ Streamlit with Flask based API (/app and /api) <br> 
+&emsp;→ Redis Queues based inferencing (/RedisComponents) <br> 
+
+Dockerfiles and Docker compose is available for Streamlit and Flask based solution.
+
+## Architecture 
+
+
+*Redis Queues based solution was designed to handle fluctuating incoming request volume and enable robust, decoupled background processing* 
+
+## Setup and Usage
+ 
+## Tech Stack 
+&emsp;→ **Versioning**: Git, DVC, Github and DagsHub <br>
+&emsp;→ **Experiment**: Tracking MLflow <br>
+&emsp;→ **Deployment**: Render and Docker <br>
+&emsp;→ **Framework**: Streamlit and Flask <br>
+&emsp;→ **Task Queues**: Redis and Redis Queue (CLI-driven Inferencing)
+
+## Deployment Ready
+
+## Results 
+
+## Dataset & Attribution
 This project uses the URL-Phish dataset. The dataset was obtained from Kaggle, where it is available as [Phishing URL Detection (111K URLs, 22 Features)](https://www.kaggle.com/datasets/sahandnamvar/phishing-url-detection-111k-urls-22-features).
 
 The dataset is originally licensed under **[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)**, 
@@ -45,7 +72,7 @@ of the features; the remaining
 features were excluded at training time via feature selection, not by removing them from 
 the stored datasets.
 
-# License
+## License
 - **Code**: MIT License — see `LICENSE`
 - **Data**: Raw and processed datasets are redistributed under original **Creative Commons Attribution 4.0 International (CC BY 4.0) license**, consistent with the original dataset's license (see Dataset & Attribution above).
 - **Model & preprocessors**: MIT License — trained artifacts are provided under the same 
