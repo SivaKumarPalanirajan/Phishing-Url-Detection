@@ -21,6 +21,9 @@ Dockerfiles and Docker compose is available for Streamlit and Flask based soluti
 
 ## Architecture 
 
+![Model Development Pipeline](assets/ModelDevelopment.png) 
+![Application Flow](assets/ApplicationFlow.png)
+![Redis Queues based solution](assets/RedisPipeline.png)
 
 *Redis Queues based solution was designed to handle fluctuating incoming request volume and enable robust, decoupled background processing* 
 
