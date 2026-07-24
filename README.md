@@ -99,10 +99,10 @@ python -m ProducerConsumer --mode consumer --out-dir <OutputDirectory>
 
 ## Tech Stack 
 &emsp;→ **Versioning**: Git, DVC, Github and DagsHub <br>
-&emsp;→ **Experiment**: Tracking MLflow <br>
+&emsp;→ **Experiment Tracking**: MLflow <br>
 &emsp;→ **Deployment**: Render and Docker <br>
 &emsp;→ **Framework**: Streamlit and Flask <br>
-&emsp;→ **Task Queues**: Redis and Redis Queue (CLI-driven Inferencing)
+&emsp;→ **Task Queues**: Redis Queue (CLI-driven Inferencing)
 
 ## Deployment Ready
 The streamlit application with Flask API can be deployed using the dockerfiles along with the docker compose.
